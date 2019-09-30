@@ -18,7 +18,7 @@ PACKAGE_VERSION=$(cat package.json \
 echo ${PACKAGE_VERSION}
 
 # package version update
-npm --no-git-tag-version version 2.1.2
+#npm --no-git-tag-version version 2.1.2
 
 #first_line=`head -n1 ${COMMIT_MSG_FILE}`
 #
