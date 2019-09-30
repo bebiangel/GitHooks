@@ -3,7 +3,12 @@
 COMMIT_MSG_FILE=$1
 #
 BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
-issue_number=`echo ${BRANCH_NAME} | cut -d '-' -f1`
+
+if ["$BRANCH_NAME" != "master"]; then
+    echo  'master 브랜치'
+    exit
+fi
+
 version_number="[0-9]\+.[0-9]\+.[0-9]\+"
 echo ${version_number}
 echo ${BRANCH_NAME}
@@ -16,9 +21,6 @@ PACKAGE_VERSION=$(cat package.json \
   | tr -d '[[:space:]]')
 
 echo ${PACKAGE_VERSION}
-
-# package version update
-npm --no-git-tag-version version 2.1.2
 
 #first_line=`head -n1 ${COMMIT_MSG_FILE}`
 #
