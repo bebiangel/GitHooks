@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 #
-BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
 echo "${BRANCHNAME}"
-echo "${changed_files}"
+#echo "${changed_files}"
+echo "${GIT_COMMIT_TO_MASTER}"
 #
 #if ["$BRANCH_NAME" != "master"]; then
 #    echo  'master 브랜치'
