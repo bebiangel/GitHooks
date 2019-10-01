@@ -5,9 +5,12 @@ BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 
 changed_files="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
-echo "${BRANCHNAME}"
+echo 'BRANCH_NAME: ' "${BRANCH_NAME}"
 #echo "${changed_files}"
-echo "${GIT_COMMIT_TO_MASTER}"
+echo "GIT_COMMIT_TO_MASTER: " "${GIT_COMMIT_TO_MASTER}"
+
+echo "1 : " $(git rev-parse MERGE_HEAD)
+echo "2 : "$(git for-each-ref | grep ^$(git rev-parse MERGE_HEAD) )
 #
 #if ["$BRANCH_NAME" != "master"]; then
 #    echo  'master 브랜치'
@@ -39,6 +42,8 @@ echo "${GIT_COMMIT_TO_MASTER}"
 #if [[ $BRANCH_NAME =~ release\/(\d+\.)(\d+\.)(\d) ]]; then
 #    echo '일치'
 #fi
+
+
   merge_destination_branch=$1
   merge_source_branch=$2
 
