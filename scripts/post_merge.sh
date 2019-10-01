@@ -39,3 +39,12 @@ echo "${GIT_COMMIT_TO_MASTER}"
 #if [[ $BRANCH_NAME =~ release\/(\d+\.)(\d+\.)(\d) ]]; then
 #    echo '일치'
 #fi
+  merge_destination_branch=$1
+  merge_source_branch=$2
+
+  merge_base=$(git merge-base $merge_destination_branch $merge_source_branch)
+  merge_source_current_commit=$(git rev-parse $merge_source_branch)
+
+  echo 'merge_base' "${merge_base}"
+  echo 'merge_source_branch' "${merge_source_branch}"
+  echo 'merge_source_current_commit' "${merge_source_current_commit}"
