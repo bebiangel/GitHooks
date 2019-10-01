@@ -2,11 +2,11 @@
 
 COMMIT_MSG_FILE=$1
 #
-branch_name=`git rev-parse --abbrev-ref HEAD`
-issue_number=`echo ${branch_name} | cut -d '-' -f1`
+BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
+issue_number=`echo ${BRANCH_NAME} | cut -d '-' -f1`
 version_number="[0-9]\+.[0-9]\+.[0-9]\+"
 echo ${version_number}
-echo ${branch_name}
+echo ${BRANCH_NAME}
 
 PACKAGE_VERSION=$(cat package.json \
   | grep version \
@@ -15,7 +15,10 @@ PACKAGE_VERSION=$(cat package.json \
   | sed 's/[",]//g' \
   | tr -d '[[:space:]]')
 
-echo $PACKAGE_VERSION
+echo ${PACKAGE_VERSION}
+
+# package version update
+#npm --no-git-tag-version version 2.1.2
 
 #first_line=`head -n1 ${COMMIT_MSG_FILE}`
 #

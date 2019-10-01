@@ -1,6 +1,6 @@
 {
   "name": "GitHooks",
-  "version": "1.0.0",
+  "version": "2.1.2",
   "description": "Git hooks &amp; shell script",
   "main": "index.js",
   "scripts": {
@@ -17,11 +17,7 @@
     "url": "https://github.com/bebiangel/GitHooks/issues"
   },
   "homepage": "https://github.com/bebiangel/GitHooks#readme",
-//  "husky": {
-//    "hooks": {
-//      "pre-commit": "sh scripts/post_checkout.sh"
-//    }
-//  },
+
   "devDependencies": {
     "husky": "^3.0.7"
   }
