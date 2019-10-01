@@ -17,6 +17,15 @@ PACKAGE_VERSION=$(cat package.json \
 
 echo "${PACKAGE_VERSION}"
 
+
+#while read oldrev newrev refname
+#do
+#    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
+#    if [ "master" = "$branch" ]; then
+#        # Do something
+#    fi
+#done
+
 # package version update
 #npm --no-git-tag-version version "${PACKAGE_VERSION}"
 
