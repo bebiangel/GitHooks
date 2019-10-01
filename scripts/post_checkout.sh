@@ -15,10 +15,10 @@ PACKAGE_VERSION=$(cat package.json \
   | sed 's/[",]//g' \
   | tr -d '[[:space:]]')
 
-echo ${PACKAGE_VERSION}
+echo "${PACKAGE_VERSION}"
 
 # package version update
-#npm --no-git-tag-version version 2.1.2
+#npm --no-git-tag-version version "${PACKAGE_VERSION}"
 
 #first_line=`head -n1 ${COMMIT_MSG_FILE}`
 #

@@ -19,6 +19,8 @@
   "homepage": "https://github.com/bebiangel/GitHooks#readme",
   "husky": {
     "hooks": {
+      "pre-commit": "sh scripts/post_checkout.sh",
+      "post-merge": "sh scripts/post_merge.sh"
     }
   },
   "devDependencies": {
