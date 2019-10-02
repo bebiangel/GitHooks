@@ -2,12 +2,13 @@
 
 COMMIT_MSG_FILE=$1
 #
+VERSION_REGEX="\bv?[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?\b"
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-issue_number=$(echo ${BRANCH_NAME} | cut -d '-' -f1)
-version_number="[0-9]\+.[0-9]\+.[0-9]\+"
-BRANCH_VERISON=${BRANCH_NAME#*"/"}
-echo ${version_number}
-echo ${BRANCH_NAME}
+BRANCH_VERSION=$BRANCH_NAME | grep -E -o $VERSION_REGEX\
+
+echo 'BRANCH_NAME : ' ${BRANCH_NAME}
+echo 'BRANCH_VERSION : ' ${BRANCH_VERSION}
+
 
 PACKAGE_VERSION=$(cat package.json |
   grep version |
@@ -16,32 +17,23 @@ PACKAGE_VERSION=$(cat package.json |
   sed 's/[",]//g' |
   tr -d '[[:space:]]')
 
-if [ $PACKAGE_VERSION == $BRANCH_VERSION ]; then
-  echo '패키지 버전과 브랜치 버전이 같습니다.'
-  exit ;
+echo $PACKAGE_VERSION
+if [ $BRANCH_NAME == 'master' ]; then
+    echo 'master 브랜치입니다.'
+    exit;
+fi
+if [ xBRANCH_VERSION == x ]; then
+  echo '브랜치 버전이 맞지 않습니다.'
+  exit
+fi
+if [[ $PACKAGE_VERSION != $BRANCH_VERSION ]]; then
+  echo '패키지 버전을 업데이트 합니다.'
+  npm --no-git-tag-version version ${BRANCH_VERSION}
 else
   {
-    echo '패키지 버전을 업데이트 합니다.'
-    package version update
-    npm --no-git-tag-version version "${PACKAGE_VERSION}"
+    echo '패키지 버전과 브랜치 버전이 같습니다.'
   }
 fi
 
 echo "${PACKAGE_VERSION}"
 echo "$npm_package_version"
-#while read oldrev newrev refname
-#do
-#    branch=$(git rev-parse --symbolic --abbrev-ref $refname)
-#    if [ "master" = "$branch" ]; then
-#        # Do something
-#    fi
-#done
-
-# package version update
-#npm --no-git-tag-version version "${PACKAGE_VERSION}"
-
-#first_line=`head -n1 ${COMMIT_MSG_FILE}`
-#
-# if [ -z "$first_line" ]; then
-#     sed -i ".bak" "1s/^/[#$issue_number] /" ${COMMIT_MSG_FILE}
-# fi

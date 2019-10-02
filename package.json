@@ -1,6 +1,6 @@
 {
   "name": "git-hooks",
-  "version": "0.1.0",
+  "version": "1.23.4",
   "private": true,
   "dependencies": {
     "react": "^16.10.1",
@@ -8,7 +8,7 @@
     "react-scripts": "3.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cp ./.env.dev ./.env && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -30,7 +30,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "sh scripts/post_checkout.sh",
       "post-merge": "sh scripts/post_merge.sh",
       "post-checkout": "sh scripts/post_checkout.sh"
     }
