@@ -11,6 +11,7 @@ echo "GIT_COMMIT_TO_MASTER: " "${GIT_COMMIT_TO_MASTER}"
 
 echo "1 : " $(git rev-parse MERGE_HEAD)
 echo "2 : "$(git for-each-ref | grep ^$(git rev-parse MERGE_HEAD) )
+
 #
 #if ["$BRANCH_NAME" != "master"]; then
 #    echo  'master 브랜치'
