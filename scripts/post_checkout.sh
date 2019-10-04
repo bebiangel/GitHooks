@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
-COMMIT_MSG_FILE=$1
-#
-VERSION_REGEX="\bv?[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?\b"
+#VERSION_REGEX="\bv?[0-9]+\.[0-9]+\.[0-9]+(?:\.[0-9]+)?\b"
+VERSION_REGEX="[0-9]+(\.[0-9]+)+"
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
-BRANCH_VERSION=$BRANCH_NAME | grep -E -o $VERSION_REGEX\
+echo $BRANCH_NAME | grep -E -o $VERSION_REGEX
+BRANCH_VERSION=$(expr $BRANCH_NAME | grep -E -o $VERSION_REGEX)
+#
+#echo 'BRANCH_NAME : ' ${BRANCH_NAME}
+#echo 'BRANCH_VERSION : ' ${BRANCH_VERSION}
+#
 
-echo 'BRANCH_NAME : ' ${BRANCH_NAME}
-echo 'BRANCH_VERSION : ' ${BRANCH_VERSION}
-
+if [ "x"${BRANCH_VERSION} == "x" ]; then
+  echo '브랜치 버전이 존재하지 않습니다.'
+  exit;
+fi
 
 PACKAGE_VERSION=$(cat package.json |
   grep version |
@@ -35,5 +40,5 @@ else
   }
 fi
 
-echo "${PACKAGE_VERSION}"
-echo "$npm_package_version"
+#echo "${PACKAGE_VERSION}"
+#echo "$npm_package_version"
