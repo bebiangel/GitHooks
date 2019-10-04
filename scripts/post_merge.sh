@@ -20,3 +20,26 @@ if [ $BRANCH_NAME != "master" ]; then
   }
 fi
 
+  merge_destination_branch=$1
+  merge_source_branch=$2
+
+echo $merge_destination_branch
+echo $merge_source_branch
+
+
+  merge_base=$(git merge-base $merge_destination_branch $merge_source_branch)
+  merge_source_current_commit=$(git rev-parse $merge_source_branch)
+
+  echo '===================================='
+  echo $merge_base
+  echo $merge_source_current_commit
+  echo '===================================='
+
+  if [[ $merge_base = $merge_source_current_commit ]]
+  then
+    echo $merge_source_branch is merged into $merge_destination_branch
+    return 0
+  else
+    echo $merge_source_branch is not merged into $merge_destination_branch
+    return 1
+  fi
