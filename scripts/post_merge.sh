@@ -17,26 +17,29 @@ if [ $BRANCH_NAME != "master" ]; then
   exit
 fi
 
-  merge_destination_branch=$1
-  merge_source_branch=$2
 
-echo $merge_destination_branch
-echo $merge_source_branch
+branch="${1:-HEAD}"
+echo $branch;
+branch_name=`git rev-parse --abbrev-ref $branch`;
+echo $branch_name;
+echo '========================'
+merge_base="$(git merge-base $branch origin/dev)"
+merge_source_current_commit="$(git rev-parse $branch)"
 
 
-  merge_base=$(git merge-base $merge_destination_branch $merge_source_branch)
-  merge_source_current_commit=$(git rev-parse $merge_source_branch)
+if [ "$merge_base" != "$merge_source_current_commit" ]; then
+    echo -e "${red}Branch with name '$branch_name' is not completely merged with origin/dev.${no_color}";
+    exit 1;
+else
+    echo -e "${green}Branch with name '$branch_name' is merged with origin/dev, now checking against origin/master${no_color}";
+fi
 
-  echo '===================================='
-  echo $merge_base
-  echo $merge_source_current_commit
-  echo '===================================='
+merge_base="$(git merge-base $branch origin/master)"
 
-  if [[ $merge_base = $merge_source_current_commit ]]
-  then
-    echo $merge_source_branch is merged into $merge_destination_branch
-    return 0
-  else
-    echo $merge_source_branch is not merged into $merge_destination_branch
-    return 1
-  fi
+if [ "$merge_base" != "$merge_source_current_commit" ]; then
+    echo -e "${red}Branch with name '$branch_name' is not completely merged with orign/master.${no_color}";
+    exit 1;
+fi
+
+
+echo -e "${green}branch with name '$branch_name' is completely m
