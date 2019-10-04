@@ -40,5 +40,3 @@ else
   }
 fi
 
-#echo "${PACKAGE_VERSION}"
-#echo "$npm_package_version"
