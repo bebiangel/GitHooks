@@ -3,17 +3,12 @@
 # 현재 브랜치 명
 BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)
 VERSION_REGEX="[0-9]+(\.[0-9]+)+"
-MERGED_BRANCH=$(git branch --merged | egrep -v "(^\*|master|dev)")
+MERGED_BRANCH=$(git log --first-parent --merges -1 --oneline)
 MERGED_BRANCH_VERSION=$(expr $MERGED_BRANCH | grep -E -o $VERSION_REGEX)
 
-echo $(git log --first-parent --merges -1 --oneline)
-a=$(git log --first-parent --merges -1 --oneline)
-echo 'a:'  $a
-echo expr $MERGED_BRANCH | grep -E -o $VERSION_REGEX
-
 echo 'CURRENT BRANCH_NAME: ' "${BRANCH_NAME}"
-#echo 'MERGED_BRANCH_NAME: ' "${MERGED_BRANCH}"
 echo 'MERGED_BRANCH_VERSION: ' "${MERGED_BRANCH_VERSION}"
+
 if [ $BRANCH_NAME != "master" ]; then
   echo 'master 브랜치가 아닙니다.'
   exit
