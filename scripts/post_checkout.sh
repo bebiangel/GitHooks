@@ -10,6 +10,11 @@ BRANCH_VERSION=$(expr $BRANCH_NAME | grep -E -o $VERSION_REGEX)
 #echo 'BRANCH_VERSION : ' ${BRANCH_VERSION}
 #
 
+if [ $BRANCH_NAME == 'master' ]; then
+    echo 'master 브랜치입니다.'
+    exit;
+fi
+
 if [ "x"${BRANCH_VERSION} == "x" ]; then
   echo '브랜치 버전이 존재하지 않습니다.'
   exit;
@@ -23,11 +28,7 @@ PACKAGE_VERSION=$(cat package.json |
   tr -d '[[:space:]]')
 
 echo $PACKAGE_VERSION
-if [ $BRANCH_NAME == 'master' ]; then
-    echo 'master 브랜치입니다.'
-    exit;
-fi
-if [ xBRANCH_VERSION == x ]; then
+if [ x$BRANCH_VERSION == x ]; then
   echo '브랜치 버전이 맞지 않습니다.'
   exit
 fi
