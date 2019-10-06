@@ -7,7 +7,7 @@ MERGED_BRANCH=$(git branch --merged | egrep -v "(^\*|master|dev)")
 MERGED_BRANCH_VERSION=$(expr $MERGED_BRANCH | grep -E -o $VERSION_REGEX)
 
 echo $(git log --first-parent --merges -1 --oneline)
-a=git log --first-parent --merges -1 --oneline
+a=$(git log --first-parent --merges -1 --oneline)
 echo 'a:'  $a
 echo expr $MERGED_BRANCH | grep -E -o $VERSION_REGEX
 
