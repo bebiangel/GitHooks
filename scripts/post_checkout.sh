@@ -20,14 +20,9 @@ if [ "x"${BRANCH_VERSION} == "x" ]; then
   exit;
 fi
 
-PACKAGE_VERSION=$(cat package.json |
-  grep version |
-  head -1 |
-  awk -F: '{ print $2 }' |
-  sed 's/[",]//g' |
-  tr -d '[[:space:]]')
-
+PACKAGE_VERSION=$(npm run version --silent)
 echo $PACKAGE_VERSION
+
 if [ x$BRANCH_VERSION == x ]; then
   echo '브랜치 버전이 맞지 않습니다.'
   exit
