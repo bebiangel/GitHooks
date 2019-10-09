@@ -24,7 +24,7 @@ fi
 if [[ $PACKAGE_VERSION != $BRANCH_VERSION ]]; then
   echo '패키지 버전을 업데이트 합니다.'
   npm --no-git-tag-version version "${BRANCH_VERSION}"
-  git add .
+  git add . -A
   git commit -a "$COMMIT_MESSAGE"
 else
   {
